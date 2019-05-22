@@ -2,28 +2,35 @@
     <html>
         <head>
             <title>Nonogram</title>
-            <link rel="stylesheet" type="text/css" href="paintGame.css">
+            
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" type="text/css" href="paintGame.css">
         </head>
         <body>
             <div class="container">  
                 <div class="row">
-                    <h1 class="col col-md-12" style="text-align: center">Nonogram - A Puzzle Game</h1>
+                    <h1 class="col col-md-12" style="text-align: center;padding:-10px;">Nonogram - A Puzzle Game</h1>
                 </div>
             </div>  
-            <div class="container" style="text-align: center;align-items: center">
+            <div class="container">
                 <div class="row">
-                    <div class="col col-md-12" id="pixelPainter">
+                    <div class="col col-md-3">
+                        <div class="well">hello hi
+                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175"/></div>
+                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175"/></div>
+                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175"/></div></div>
+                    </div>
+                    <div class="col col-md-9" id="pixelPainter">
                         <div class="row">
                             <div class="speshSquare" id="0101"></div>
-                            <div class="speshSquare" id="0102">2</div>
-                            <div class="speshSquare" id="0103">4</div>
-                            <div class="speshSquare" id="0104">5</div>
-                            <div class="speshSquare" id="0105">4</div>
-                            <div class="speshSquare" id="0106">2</div>
+                            <div class="speshSquareCol" id="0102"><span>2</span></div>
+                            <div class="speshSquareCol" id="0103"><span>4</span></div>
+                            <div class="speshSquareCol" id="0104"><span>4</span></div>
+                            <div class="speshSquareCol" id="0105"><span>4</span></div>
+                            <div class="speshSquareCol" id="0106"><span>2</span></div>
                         </div>
                         <div class="row">
-                            <div class="speshSquare" id="0201">3</div>
+                            <div class="speshSquareRow" id="0201">1 1</div>
                             <div class="square" id="0202"></div>
                             <div class="square" id="0203"></div>
                             <div class="square" id="0204"></div>
@@ -31,7 +38,7 @@
                             <div class="square" id="0206"></div>
                         </div>
                         <div class="row">
-                                <div class="speshSquare" id="0301">5</div>
+                                <div class="speshSquareRow" id="0301">5</div>
                                 <div class="square" id="0302"></div>
                                 <div class="square" id="0303"></div>
                                 <div class="square" id="0304"></div>
@@ -39,7 +46,7 @@
                                 <div class="square" id="0306"></div>
                         </div>
                         <div class="row">
-                                <div class="speshSquare" id="01">5</div>
+                                <div class="speshSquareRow" id="0401">5</div>
                                 <div class="square" id="0402"></div>
                                 <div class="square" id="0403"></div>
                                 <div class="square" id="0404"></div>
@@ -47,7 +54,7 @@
                                 <div class="square" id="0406"></div>
                         </div>
                         <div class="row" id="05">
-                                <div class="speshSquare" id="0501">3</div>
+                                <div class="speshSquareRow" id="0501">3</div>
                                 <div class="square" id="0502"></div>
                                 <div class="square" id="0503"></div>
                                 <div class="square" id="0504"></div>
@@ -55,7 +62,7 @@
                                 <div class="square" id="0506"></div>
                         </div>
                         <div class="row">
-                                <div class="speshSquare" id="0601">1</div>
+                                <div class="speshSquareRow" id="0601">1</div>
                                 <div class="square" id="0602"></div>
                                 <div class="square" id="0603"></div>
                                 <div class="square" id="0604"></div>

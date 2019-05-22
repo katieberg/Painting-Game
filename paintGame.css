@@ -5,17 +5,43 @@
     border: solid grey 1px;
     background-color: white;
 }
-.speshSquare{
+.speshSquareRow{
     height: 60px;
+    width: 120px;
+    display: inline-block;
+    background-color: white;
+    text-align: right;
+    padding-right:5px;
+    font-size:2em;
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+}
+.speshSquareCol{
+    height: 120px;
+    position:relative;
     width: 60px;
     display: inline-block;
     background-color: white;
+    text-align:center;
+    font-size:2em;
+}
+.speshSquareCol span{
+    position:absolute;
+    bottom:0;
+}
+.speshSquare{
+    height: 120px;
+    width: 120px;
+    display: inline-block;
+    background-color: white;
+    
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
 }
 
 
-.container {
-    padding: 50px;
-}
 body {
     font-family: "Impact", Charcoal, sans-serif;
 }
