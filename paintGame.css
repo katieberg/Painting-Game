@@ -1,0 +1,21 @@
+.square{
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    border: solid grey 1px;
+    background-color: white;
+}
+.speshSquare{
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    background-color: white;
+}
+
+
+.container {
+    padding: 50px;
+}
+body {
+    font-family: "Impact", Charcoal, sans-serif;
+}
