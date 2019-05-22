@@ -1,7 +1,7 @@
-fetch("https://raw.githubusercontent.com/katieberg/Painting-Game/master/Puzzles.json")
+var puzzleObj=fetch("https://raw.githubusercontent.com/katieberg/Painting-Game/master/Puzzles.json")
   .then(response => response.json())
-  .then(function(json){
-      console.log(json[0])
+  .then(function(json){  
+    return json;
   });
 
 document.addEventListener('DOMContentLoaded', function () {//one issue occurs normally on the first time you try to do unpaint because the mouse is selecting items as it is painting.
@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
                 solutionCount++;
         }
     }
+    puzzleObj.then(data => console.log(data))
 
     var inGameMatrix=[[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]//always all zeros when game begins
     var paintedCount=0;//number of painted cells - none so far
