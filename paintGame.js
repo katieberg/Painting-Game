@@ -1,6 +1,6 @@
-// fetch("Puzzles.json")
-//   .then(response => response.json())
-//   .then(json => console.log(json));
+fetch("https://raw.githubusercontent.com/katieberg/Painting-Game/master/Puzzles.json")
+  .then(response => response.json())
+  .then(json => console.log(json));
 
 document.addEventListener('DOMContentLoaded', function () {//one issue occurs normally on the first time you try to do unpaint because the mouse is selecting items as it is painting.
     var solutionMatrix=[[0,1,0,1,0],[1,1,1,1,1],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]]//could do different colors for each puzzle
