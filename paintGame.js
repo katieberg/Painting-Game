@@ -5,24 +5,43 @@ var puzzleObj=fetch("https://raw.githubusercontent.com/katieberg/Painting-Game/m
   });
 
 document.addEventListener('DOMContentLoaded', function () {//one issue occurs normally on the first time you try to do unpaint because the mouse is selecting items as it is painting.
-    var solutionMatrix=[[0,1,0,1,0],[1,1,1,1,1],[1,1,1,1,1],[0,1,1,1,0],[0,0,1,0,0]]//could do different colors for each puzzle
-    var solutionCount=0;
-    for(arr of solutionMatrix){//sets solutionCount to the number of painted cells so we can know when to check if the solution is correct.
-        for(el of arr){
-            if(el==1)
-                solutionCount++;
+    puzzleObj.then(function(data){
+        solutionCount=0;
+        var solMat=data[0][puzzleID]["solutionMatrix"]
+        for(arr of solMat){//sets solutionCount to the number of painted cells so we can know when to check if the solution is correct.
+            for(el of arr){
+                if(el==1)
+                    solutionCount++;
+            }
         }
-    }
-    puzzleObj.then(data => console.log(data))
+        console.log(solutionCount)
 
+    })//could do different colors for each puzzle OR black and then once solved turn it the special color
+    var solutionCount;
+    
+    var columnHintContent//assign value at puzzleObj.then
+    var rowHintContent//assign value at puzzleObj.then
     var inGameMatrix=[[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]//always all zeros when game begins
     var paintedCount=0;//number of painted cells - none so far
     var squares = document.getElementsByClassName("square")//array of all the paintable cells
     var columnHints = document.getElementsByClassName("speshSquareCol")
-    for(el of columnHints){
-        el.childNodes[0].innerHTML=el.childNodes[0].innerHTML
-        
-    }//this is how we have to make this work BUT i think we can use a function to do this so we can have a local count to iterate over the JSON array.
+    var rowHints = document.getElementsByClassName("speshSquareRow")
+    var puzzleID="Puzzle-3"
+    puzzleObj.then(function(data){
+        columnHintContent=data[0][puzzleID]["colHint"]
+        rowHintContent=data[0][puzzleID]["rowHint"]
+        var count=0;
+        for(el of columnHints){
+            el.childNodes[0].innerHTML=columnHintContent[count]
+            count++
+        }
+        count=0
+        for(el of rowHints){
+            el.childNodes[0].innerHTML=rowHintContent[count]
+            count++
+        }
+    })
+    //this is how we have to make this work BUT i think we can use a function to do this so we can have a local count to iterate over the JSON array.
 
     var startPaint = function(event){
         paintedCount++;
@@ -112,16 +131,30 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
     }
 
     function compareToSolution(){
-        for(var i=0;i<solutionMatrix.length;i++){
-            for(var j=0;j<solutionMatrix.length;j++){
-                if (solutionMatrix[i][j] != inGameMatrix[i][j]){
-                    return;
+        puzzleObj.then(function(data){
+            var solutionMatrix=data[0][puzzleID]["solutionMatrix"]
+            for(var i=0;i<solutionMatrix.length;i++){//it is not entering into this loop because myMatrix is undefined
+                for(var j=0;j<solutionMatrix.length;j++){
+                    if (solutionMatrix[i][j] != inGameMatrix[i][j]){
+                        return;
+                    }
                 }
             }
-        }
-        alert("good job")
+            for(el of squares){
+                if (el.style.backgroundColor=="pink"){
+                    el.style.backgroundColor="black";
+                    el.removeEventListener("mousedown",startUnpaint);
+                }
+                else{
+                    el.removeEventListener("mousedown",startPaint)
+                }
+            }
+        })
+        
     }
+    
     for(el of squares){
         el.addEventListener("mousedown",startPaint);
     }
+    
 })
