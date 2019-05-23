@@ -9,21 +9,34 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
     var squares = document.getElementsByClassName("square")//array of all the paintable cells
     var columnHints = document.getElementsByClassName("speshSquareCol")
     var rowHints = document.getElementsByClassName("speshSquareRow")
-    
-    
+    var countHTML=document.querySelector(".well")
+    var firstPuzzle=true;
     document.querySelector("#Puzzle-1").addEventListener("click",newPuzzle)
     document.querySelector("#Puzzle-2").addEventListener("click",newPuzzle)
     document.querySelector("#Puzzle-3").addEventListener("click",newPuzzle)
     function newPuzzle(){
         puzzleID=this.id;
-        for(el of squares){
-            el.style.backgroundColor="white"
-        }
+        firstPuzzle=false;
         loadPuzzle()
     }
     loadPuzzle()
     function loadPuzzle(){
-        
+        if(!firstPuzzle){
+            for(el of squares){
+                if(el.style.backgroundColor=="pink"){
+                    el.removeEventListener("mousedown",startUnpaint);  
+                }
+                else{
+                    el.removeEventListener("mousedown",startPaint);
+                }
+                el.style.backgroundColor="white"
+                el.removeEventListener("mouseover",paint)
+                el.removeEventListener("mouseover",unpaint)
+                el.removeEventListener("mousedown",startUnpaint)
+                el.removeEventListener("mousedown",startPaint)
+            }
+        }
+
         puzzleObj.then(function(data){
             solutionCount=0;
             var solMat=data[0][puzzleID]["solutionMatrix"]
@@ -34,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
                 }
             }
 
-        })//could do different colors for each puzzle OR black and then once solved turn it the special color
+        })
         var solutionCount;//number of painted squares in the solution
         var columnHintContent//HTML STUFF - assigned value at puzzleObj.then
         var rowHintContent//HTML STUFF - assigned value at puzzleObj.then
@@ -49,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
                 el.childNodes[0].innerHTML=columnHintContent[count]
                 count++
             }
-            count=0
+            count=0;
             for(el of rowHints){
                 el.childNodes[0].innerHTML=rowHintContent[count]
                 count++
@@ -58,96 +71,112 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
         //this is how we have to make this work BUT i think we can use a function to do this so we can have a local count to iterate over the JSON array.
 
         var startPaint = function(event){
-            paintedCount++;
-            event.target.style.backgroundColor="pink";
-            var cell = event.target.id
-            var row = parseInt(cell[0,1]-2)
-            var col = parseInt(cell[2,3]-2)
-            inGameMatrix[row][col]=1
-            event.target.addEventListener("mousedown",startUnpaint);
-            event.target.removeEventListener("mousedown",startPaint)
-            window.addEventListener("mouseup",stopPaint);//mouseup should only happen in the squares 
-            for(el of squares){
-                el.addEventListener("mouseover",paint);   
+            if(event.target.style!="pink"){
+                paintedCount++;
+                countHTML.textContent=paintedCount;
+                event.target.style.backgroundColor="pink";
+                var cell = event.target.id
+                var row = parseInt(cell[0,1]-2)
+                var col = parseInt(cell[2,3]-2)
+                inGameMatrix[row][col]=1
+                event.target.addEventListener("mousedown",startUnpaint);
+                
+                event.target.removeEventListener("mousedown",startPaint)
+                
+                window.addEventListener("mouseup",stopPaint);
+                
+                for(el of squares){
+                    el.addEventListener("mouseover",paint);
+                }
             }
-            
-        }
-        var startUnpaint = function(event){
-            paintedCount--;
-            event.target.style.backgroundColor="white";
-            var cell = event.target.id
-            var row = parseInt(cell[0,1]-2)
-            var col = parseInt(cell[2,3]-2)
-            inGameMatrix[row][col]=0
-            event.target.addEventListener("mousedown",startPaint);
-            event.target.removeEventListener("mousedown",startUnpaint)
-            window.addEventListener("mouseup",stopUnpaint);//mouseup should only happen in the squares 
-            for(el of squares){
-                el.addEventListener("mouseover",unpaint);   
-            }
-            
         }
 
-        function paint(){//paint is working. while mouse is down it can be dragged to other squares to paint them
-            if(event.target.style.backgroundColor!="pink" && event.target.classList.contains("square")){
-                paintedCount++;
-                var cell = event.target.id
-                var row = cell[0,1]-2
-                var col = cell[2,3]-2
-                inGameMatrix[row][col]=1
-                event.target.style.backgroundColor="pink";
-                event.target.addEventListener("mousedown",startUnpaint);
-                event.target.removeEventListener("mousedown",startPaint);
-            }
-            
-            
-        }
-        function unpaint(){
-            if(event.target.style.backgroundColor=="pink" && event.target.classList.contains("square")){
+        var startUnpaint = function(event){
+            if(event.target.style.backgroundColor=="pink"){
                 paintedCount--;
+                countHTML.textContent=paintedCount;
+                event.target.style.backgroundColor="white";
                 var cell = event.target.id
                 var row = parseInt(cell[0,1]-2)
                 var col = parseInt(cell[2,3]-2)
                 inGameMatrix[row][col]=0
-                event.target.style.backgroundColor="white";
+                event.target.addEventListener("mousedown",startPaint);
+                
+                event.target.removeEventListener("mousedown",startUnpaint)
+                
+                window.addEventListener("mouseup",stopUnpaint);//mouseup should only happen in the squares 
+                
+                for(el of squares){
+                    el.addEventListener("mouseover",unpaint); 
+                }
+            }
+            
+        }
+
+        var paint = function(){//paint is working. while mouse is down it can be dragged to other squares to paint them
+            console.log("entered paint")
+            if(event.target.style.backgroundColor!="pink" && event.target.classList.contains("square")){
+                paintedCount++;
+                countHTML.textContent=paintedCount;
+                var cell = event.target.id
+                var row = cell[0,1]-2
+                var col = cell[2,3]-2
+                inGameMatrix[row][col]=1
+                event.target.addEventListener("mousedown",startUnpaint);
+                event.target.removeEventListener("mousedown",startPaint);
+                event.target.style.backgroundColor="pink";
+                
+            }
+            
+            
+        }
+        var unpaint = function(){
+            console.log("entered unpaint")
+            if(event.target.style.backgroundColor=="pink" && event.target.classList.contains("square")){
+                paintedCount--;
+                countHTML.textContent=paintedCount;
+                var cell = event.target.id
+                var row = parseInt(cell[0,1]-2)
+                var col = parseInt(cell[2,3]-2)
+                inGameMatrix[row][col]=0
                 event.target.addEventListener("mousedown",startPaint);
                 event.target.removeEventListener("mousedown",startUnpaint);
+                event.target.style.backgroundColor="white";
+                
             }
             
             
         }
 
-        function stopPaint(){//stop paint is working. when mouse is up it will stop painting.
+        var stopPaint = function(){//stop paint is working. when mouse is up it will stop painting.
+            
+            window.removeEventListener("mouseup",stopPaint)
+            
             for(el of squares){
                 el.removeEventListener("mouseover",paint)
+                
             }
             if(paintedCount==solutionCount){
                 compareToSolution();
             }
-            window.removeEventListener("mouseup",stopPaint)
         }
         
-        function stopUnpaint(){
+        var stopUnpaint = function(){
+            window.removeEventListener("mouseup",stopUnpaint)
+            
             for(el of squares){
                 el.removeEventListener("mouseover",unpaint)
+                
             }
             if(paintedCount==solutionCount){
                 compareToSolution();
-            }
-            window.removeEventListener("mouseup",stopUnpaint)
-        }
-        
-        var gridClear = function(){
-            var myCollection = document.getElementsByClassName("square");
-            for(var el of myCollection){
-                el.style.backgroundColor="white";
             }
         }
 
-        function compareToSolution(){
+        var compareToSolution = function(){
             puzzleObj.then(function(data){
                 var solutionMatrix=data[0][puzzleID]["solutionMatrix"]
-                for(var i=0;i<solutionMatrix.length;i++){//it is not entering into this loop because myMatrix is undefined
+                for(var i=0;i<solutionMatrix.length;i++){
                     for(var j=0;j<solutionMatrix.length;j++){
                         if (solutionMatrix[i][j] != inGameMatrix[i][j]){
                             return;
@@ -158,12 +187,14 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
                     if (el.style.backgroundColor=="pink"){
                         el.style.backgroundColor="black";
                         el.removeEventListener("mousedown",startUnpaint);
+                        
                         var puzzleImg=document.querySelector(`#${puzzleID}`)
                         puzzleImg.src="https://cdn.britannica.com/s:300x300/18/137318-004-A879596D.jpg"
                         puzzleImg.style.height="175px"
                         puzzleImg.style.width="175px"
                         puzzleImg.removeEventListener("click",newPuzzle)
-                        paintedCOunt=0;
+                        paintedCount=0;
+                        countHTML.textContent=paintedCount;
                         //remove event listener on this element.
                     }
                     else{
@@ -176,7 +207,9 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
         
         for(el of squares){
             el.addEventListener("mousedown",startPaint);
+            console.log("hey")   
         }
+        
     
     }
     
