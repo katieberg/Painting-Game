@@ -9,11 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
     var squares = document.getElementsByClassName("square")//array of all the paintable cells
     var columnHints = document.getElementsByClassName("speshSquareCol")
     var rowHints = document.getElementsByClassName("speshSquareRow")
-    var countHTML=document.querySelector(".well")
+    var countHTML=document.querySelector("#count")
     var firstPuzzle=true;
     document.querySelector("#Puzzle-1").addEventListener("click",newPuzzle)
     document.querySelector("#Puzzle-2").addEventListener("click",newPuzzle)
     document.querySelector("#Puzzle-3").addEventListener("click",newPuzzle)
+    document.querySelector("#Puzzle-4").addEventListener("click",newPuzzle)
+    document.querySelector("#Puzzle-5").addEventListener("click",newPuzzle)
     function newPuzzle(){
         puzzleID=this.id;
         firstPuzzle=false;
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
     function loadPuzzle(){
         if(!firstPuzzle){
             for(el of squares){
-                if(el.style.backgroundColor=="pink"){
+                if(el.style.backgroundColor=="darkred"){
                     el.removeEventListener("mousedown",startUnpaint);  
                 }
                 else{
@@ -71,10 +73,10 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
         //this is how we have to make this work BUT i think we can use a function to do this so we can have a local count to iterate over the JSON array.
 
         var startPaint = function(event){
-            if(event.target.style!="pink"){
+            if(event.target.style!="darkred"){
                 paintedCount++;
                 countHTML.textContent=paintedCount;
-                event.target.style.backgroundColor="pink";
+                event.target.style.backgroundColor="darkred";
                 var cell = event.target.id
                 var row = parseInt(cell[0,1]-2)
                 var col = parseInt(cell[2,3]-2)
@@ -92,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
         }
 
         var startUnpaint = function(event){
-            if(event.target.style.backgroundColor=="pink"){
+            if(event.target.style.backgroundColor=="darkred"){
                 paintedCount--;
                 countHTML.textContent=paintedCount;
                 event.target.style.backgroundColor="white";
@@ -115,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
 
         var paint = function(){//paint is working. while mouse is down it can be dragged to other squares to paint them
             console.log("entered paint")
-            if(event.target.style.backgroundColor!="pink" && event.target.classList.contains("square")){
+            if(event.target.style.backgroundColor!="darkred" && event.target.classList.contains("square")){
                 paintedCount++;
                 countHTML.textContent=paintedCount;
                 var cell = event.target.id
@@ -124,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
                 inGameMatrix[row][col]=1
                 event.target.addEventListener("mousedown",startUnpaint);
                 event.target.removeEventListener("mousedown",startPaint);
-                event.target.style.backgroundColor="pink";
+                event.target.style.backgroundColor="darkred";
                 
             }
             
@@ -132,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
         }
         var unpaint = function(){
             console.log("entered unpaint")
-            if(event.target.style.backgroundColor=="pink" && event.target.classList.contains("square")){
+            if(event.target.style.backgroundColor=="darkred" && event.target.classList.contains("square")){
                 paintedCount--;
                 countHTML.textContent=paintedCount;
                 var cell = event.target.id
@@ -184,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
                     }
                 }
                 for(el of squares){
-                    if (el.style.backgroundColor=="pink"){
+                    if (el.style.backgroundColor=="darkred"){
                         el.style.backgroundColor="black";
                         el.removeEventListener("mousedown",startUnpaint);
                         

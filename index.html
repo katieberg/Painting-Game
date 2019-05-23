@@ -7,25 +7,26 @@
             <link rel="stylesheet" type="text/css" href="paintGame.css">
         </head>
         <body>
-            <div class="container">  
-                <div class="row">
+            <div class="container" style="height:100vh">  
+                <div class="row" style="height:20%">
                     <h1 class="col col-md-12" style="text-align: center;padding:-10px;">Nonogram - A Puzzle Game</h1>
-                    <p style="text-align: center">The object of a picross puzzle is to darken all the correct squares in the grid to reveal a hidden image.
+                    <p style="text-align: center">The goal of Nonogram is to color in all the correct squares in the grid to find the secret image.
 
-                            The numbers on the sides of each row and column represent continuous blocks of darkened cells. Note that every block of darkened cells must be seperated by at least one blank cell. (There may be many more than one blank cell between continuous filled squares, but there must be at least one.)
+                            The numbers on the sides of each row and column represent the number of colored cells. Multiple numbers in a cell or column represent multiple blocks of colored cells, separated by at least one empty cell. 
                             
-                            It’s also important to pay attention to the order the numbers are listed in. The order in which they appear in the grid will match the order they are listed.</p>
+                            The order the numbers are listed in reflects the order in which they appear in the grid.</p>
                 </div>
-            </div>  
-            <div class="container">
-                <div class="row">
-                    <div class="col col-md-3">
-                        <p style="text-align: center">0 (count)</p>
-                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-1" alt="Puzzle 1"/></div>
-                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-2" alt="Puzzle 2"/></div>
-                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-3" alt="Puzzle 3"/></div>
-                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-4" alt="Puzzle 4"/></div>
-                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-5" alt="Puzzle 5"/></div>
+              
+                <div class="row" style="height:80%">
+                    <div class="col col-md-3" style="height:100%">
+                        <div class="scrollbar scrollbar-primary" style="height:100%">
+                            <p style="text-align: center"><span id="count">0</span> (count)</p>
+                            <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-1" alt="Puzzle 1"/></div>
+                            <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-2" alt="Puzzle 2"/></div>
+                            <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-3" alt="Puzzle 3"/></div>
+                            <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-4" alt="Puzzle 4"/></div>
+                            <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-5" alt="Puzzle 5"/></div>
+                        </div>
                     </div>
                     <div class="col col-md-9" id="pixelPainter">
                         <div class="row" onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
