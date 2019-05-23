@@ -29,7 +29,7 @@ body{
 .speshSquareCol{
     writing-mode: vertical-lr;
     text-orientation: upright;
-    height: 120px;
+    height: 180px;
     position:relative;
     width: 60px;
     display: inline-block;
@@ -42,7 +42,7 @@ body{
     bottom:0;
 }
 .speshSquare{
-    height: 120px;
+    height: 180px;
     width: 120px;
     display: inline-block;
     background-color: white;

@@ -10,15 +10,22 @@
             <div class="container">  
                 <div class="row">
                     <h1 class="col col-md-12" style="text-align: center;padding:-10px;">Nonogram - A Puzzle Game</h1>
+                    <p style="text-align: center">The object of a picross puzzle is to darken all the correct squares in the grid to reveal a hidden image.
+
+                            The numbers on the sides of each row and column represent continuous blocks of darkened cells. Note that every block of darkened cells must be seperated by at least one blank cell. (There may be many more than one blank cell between continuous filled squares, but there must be at least one.)
+                            
+                            It’s also important to pay attention to the order the numbers are listed in. The order in which they appear in the grid will match the order they are listed.</p>
                 </div>
             </div>  
             <div class="container">
                 <div class="row">
                     <div class="col col-md-3">
-                        <div class="well">COUNT</div>
+                        <p style="text-align: center">0 (count)</p>
                                 <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-1" alt="Puzzle 1"/></div>
                                 <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-2" alt="Puzzle 2"/></div>
                                 <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-3" alt="Puzzle 3"/></div>
+                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-4" alt="Puzzle 4"/></div>
+                                <div class="row" style="margin:30px"><img src="https://via.placeholder.com/175" id="Puzzle-5" alt="Puzzle 5"/></div>
                     </div>
                     <div class="col col-md-9" id="pixelPainter">
                         <div class="row" onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
@@ -69,7 +76,6 @@
                                 <div class="square" id="0605"></div>
                                 <div class="square" id="0606"></div>
                         </div>
-                        <button id="solve">Check solution</button>
                     </div>
                 </div>
             </div>

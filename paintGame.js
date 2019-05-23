@@ -207,7 +207,6 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
         
         for(el of squares){
             el.addEventListener("mousedown",startPaint);
-            console.log("hey")   
         }
         
     
