@@ -119,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
             
         }
         var unpaint = function(){
-            console.log("entered unpaint")
             if(event.target.style.backgroundColor=="darkred" && event.target.classList.contains("square")){
                 paintedCount--;
                 countHTML.textContent=paintedCount;
@@ -178,8 +177,6 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
                         
                         var puzzleImg=document.querySelector(`#${puzzleID}`)
                         puzzleImg.src="https://cdn.britannica.com/s:300x300/18/137318-004-A879596D.jpg"
-                        puzzleImg.style.height="175px"
-                        puzzleImg.style.width="175px"
                         puzzleImg.removeEventListener("click",newPuzzle)
                         paintedCount=0;
                         countHTML.textContent=paintedCount;
