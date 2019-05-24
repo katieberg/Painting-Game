@@ -18,25 +18,12 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
     document.querySelector("#Puzzle-5").addEventListener("click",newPuzzle)
     function newPuzzle(){
         puzzleID=this.id;
-        firstPuzzle=false;
         loadPuzzle()
     }
     loadPuzzle()
     function loadPuzzle(){
-        if(!firstPuzzle){
-            for(el of squares){
-                if(el.style.backgroundColor=="darkred"){
-                    el.removeEventListener("mousedown",startUnpaint);  
-                }
-                else{
-                    el.removeEventListener("mousedown",startPaint);
-                }
-                el.style.backgroundColor="white"
-                el.removeEventListener("mouseover",paint)
-                el.removeEventListener("mouseover",unpaint)
-                el.removeEventListener("mousedown",startUnpaint)
-                el.removeEventListener("mousedown",startPaint)
-            }
+        for(el of squares){
+            el.style.backgroundColor="white"
         }
 
         puzzleObj.then(function(data){
@@ -116,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
         }
 
         var paint = function(){//paint is working. while mouse is down it can be dragged to other squares to paint them
-            console.log("entered paint")
             if(event.target.style.backgroundColor!="darkred" && event.target.classList.contains("square")){
                 paintedCount++;
                 countHTML.textContent=paintedCount;
@@ -197,11 +183,16 @@ document.addEventListener('DOMContentLoaded', function () {//one issue occurs no
                         puzzleImg.removeEventListener("click",newPuzzle)
                         paintedCount=0;
                         countHTML.textContent=paintedCount;
-                        //remove event listener on this element.
+                        
                     }
                     else{
                         el.removeEventListener("mousedown",startPaint)
                     }
+                    
+                }
+                var newPuzzleID="#" + puzzleID.substring(0,puzzleID.length-1)+(parseInt(puzzleID[puzzleID.length-1])+1)
+                if(document.querySelector(newPuzzleID)){
+                    document.querySelector(newPuzzleID).style.display="block"
                 }
             })
             
