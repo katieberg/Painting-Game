@@ -1,10 +1,5 @@
-@font-face{
-    font-family: "Avenir";
-    src: url("./avenirnextltpro-regular.otf");
-}
-
 body{
-    font-family: Avenir;
+    font-family: Lato;
 }
 
 .square{
